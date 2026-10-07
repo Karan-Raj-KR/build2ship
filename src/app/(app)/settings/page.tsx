@@ -263,7 +263,7 @@ export default function SettingsPage() {
               const url = URL.createObjectURL(await response.blob());
               const a = document.createElement('a');
               a.href = url;
-              a.download = 'elara-export.json';
+              a.download = 'build2ship-export.json';
               a.click();
               URL.revokeObjectURL(url);
               setMessage('Your complete data export was downloaded.');

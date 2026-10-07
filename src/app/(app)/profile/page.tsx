@@ -281,7 +281,7 @@ function ProfileContent() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `elara-context-pack.${exportFormat === "json" ? "json" : "md"}`;
+    a.download = `build2ship-context-pack.${exportFormat === "json" ? "json" : "md"}`;
     a.click();
     URL.revokeObjectURL(url);
     if (!profile) return;

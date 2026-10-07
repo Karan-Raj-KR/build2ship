@@ -56,9 +56,24 @@ export async function POST(req: NextRequest) {
 
     // 3. If authenticated, persist the authenticated Scout run
     if (user) {
-      await createSql()`INSERT INTO scout_runs (id,user_id,query_text,structured_query,result_count,status)
-        VALUES (${runId},${user.id},${query},${JSON.stringify(combinedQuery)}::jsonb,${rankingResult.rankedItems.length},'completed')`;
-
+      try {
+        if (process.env.SUPABASE_DB_URL) {
+          const { createSql } = await import('@/lib/db/service');
+          await createSql()`INSERT INTO scout_runs (id,user_id,query_text,structured_query,result_count,status)
+            VALUES (${runId},${user.id},${query},${JSON.stringify(combinedQuery)}::jsonb,${rankingResult.rankedItems.length},'completed')`;
+        } else {
+          await supabase.from('scout_runs').insert({
+            id: runId,
+            user_id: user.id,
+            query_text: query,
+            structured_query: combinedQuery,
+            result_count: rankingResult.rankedItems.length,
+            status: 'completed',
+          });
+        }
+      } catch (saveErr) {
+        console.warn('Scout run history save failed:', saveErr);
+      }
     }
 
     const response = NextResponse.json({

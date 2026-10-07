@@ -43,7 +43,7 @@ const main: readonly CanonicalNavItem[] = [
   { id: 'contributions', href: '/contributions', label: 'Build your open source experience', icon: Code2 },
   { id: 'for-you', href: '/for-you', label: 'For You', icon: Sparkles },
   { id: 'scout', href: '/scout', label: 'Scout', icon: Search },
-  { id: 'ask', href: '/ask', label: 'Ask Elara', icon: Bot },
+  { id: 'ask', href: '/ask', label: 'Ask build2ship', icon: Bot },
   { id: 'journey', href: '/journey', label: 'My journey', icon: Flag },
   { id: 'saved', href: '/saved', label: 'Saved', icon: Heart },
   { id: 'applications', href: '/workspace', label: 'Applications', icon: FolderKanban },
@@ -131,9 +131,9 @@ export function AppNav({ displayName, onSignOut }: { displayName?: string | null
     <>
       {/* Desktop Tactile Sidebar */}
       <aside className="adventure-sidebar" aria-label="Sidebar navigation">
-        <Link href="/home" className="adventure-brand" aria-label="Elara home">
-          <span>e</span>
-          elara<b>.</b>
+        <Link href="/home" className="adventure-brand" aria-label="build2ship home">
+          <span>b</span>
+          build2ship<b>.</b>
         </Link>
 
         <nav aria-label="Main navigation">

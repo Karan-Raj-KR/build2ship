@@ -1,0 +1,39 @@
+/* Havinash's OSS Mentor visual world, scoped to this integration only. */
+@font-face { font-family: 'Instrument Serif'; font-style: normal; font-weight: 400; font-display: swap; src: url('/fonts/instrument-serif.ttf') format('truetype'); }
+@font-face { font-family: 'Instrument Serif'; font-style: italic; font-weight: 400; font-display: swap; src: url('/fonts/instrument-serif-italic.ttf') format('truetype'); }
+.mentor-surface {
+  background: #000; color: #f2f4f8; font-family: Manrope, system-ui, sans-serif;
+  border-radius: 24px; overflow: clip; min-width: 0;
+  --muted: #d4d4d8; --ink: #f2f4f8; --border: #ffffff26;
+}
+.mentor-surface :is(h1,h2,h3,.display) { font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; letter-spacing: -.015em; }
+.mentor-surface h1 { text-wrap: balance; }
+.mentor-surface :is(p,li,dd,a) { overflow-wrap: anywhere; }
+.mentor-surface ::selection { background: #7dd3fc; color: #09090b; }
+.mentor-surface :focus-visible { outline: 3px solid #7dd3fc; outline-offset: 4px; }
+.mentor-surface :is(.mentor-profile,.mentor-plan,.mentor-saved) { width: min(100% - 48px, 1104px); margin-inline: auto; }
+.mentor-surface .card { background: #09090bc0; color: #f2f4f8; border: 1px solid #ffffff26; border-radius: 24px; box-shadow: none; }
+.mentor-surface .adventure-note { color: #d4d4d8; font-size: 13px; line-height: 1.65; }
+.mentor-surface .adventure-text-link { color: #bae6fd; }
+.mentor-surface .label { color: #e4e4e7; display: grid; gap: 8px; }
+.mentor-surface .input { color: #f4f4f5; background: #ffffff0d; border: 1px solid #ffffff40; border-radius: 12px; box-shadow: none; width: 100%; }
+.mentor-surface .input option { background: #09090b; color: #f4f4f5; }
+.mentor-surface .input::placeholder { color: #a1a1aa; }
+.mentor-surface .btn { border: 1px solid #ffffff40; border-radius: 999px; padding: 12px 24px; background: transparent; color: #f4f4f5; box-shadow: none; font-family: inherit; font-weight: 800; }
+.mentor-surface .btn-primary { background: #fff; color: #09090b; border-color: #fff; }
+.mentor-surface .btn:hover { transform: none; border-color: #7dd3fc; }
+.mentor-surface .btn:disabled { opacity: .5; cursor: not-allowed; }
+.mentor-surface .alert { margin: 24px; border-radius: 16px; background: #451a1a; color: #fecaca; border: 1px solid #fca5a5; }
+.mentor-surface .alert-success { background: #052e16; color: #bbf7d0; border-color: #86efac; }
+.mentor-checklist label { padding: 14px; border-radius: 12px; border: 1px solid #ffffff26; background: #ffffff0d; }
+.mentor-surface input[type=checkbox] { accent-color: #7dd3fc; width: 20px; height: 20px; flex-shrink: 0; }
+.mentor-surface dt { color: #bae6fd; font-size: 13px; }
+.mentor-surface dd { color: #e4e4e7; }
+@media (max-width: 640px) {
+  .mentor-surface { border-radius: 16px; }
+  .mentor-surface :is(.mentor-profile,.mentor-plan,.mentor-saved) { width: calc(100% - 32px); }
+  .mentor-surface .btn { width: 100%; text-align: center; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mentor-surface *, .mentor-surface *::before, .mentor-surface *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}

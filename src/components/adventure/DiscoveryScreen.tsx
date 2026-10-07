@@ -539,7 +539,7 @@ export function DiscoveryScreen({ savedOnly = false }: { savedOnly?: boolean }) 
               <h3 className="text-sm font-black text-[var(--ink)]">Preparation Workspace</h3>
             </div>
             <p className="text-xs font-semibold text-[var(--muted)] leading-relaxed">
-              Elara helps you organize requirements, drafts, and evidence. Final submission always occurs directly through the provider’s official portal.
+              build2ship helps you organize requirements, drafts, and evidence. Final submission always occurs directly through the provider’s official portal.
             </p>
             <Link href="/workspace" className="text-xs font-extrabold text-[#58CC02] hover:underline block">
               View active applications →

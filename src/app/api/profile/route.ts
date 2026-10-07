@@ -194,10 +194,26 @@ export async function PATCH(request: NextRequest) {
     const rawBody = await request.json();
     const sanitized = sanitizeProfilePayload(rawBody);
 
-    const { createSql } = await import("@/lib/db/service");
-    // Column identifiers come exclusively from ALLOWED_PROFILE_KEYS above.
-    const assignments = Object.keys(sanitized).map(key => `"${key}" = (jsonb_populate_record(NULL::profiles, $1::jsonb))."${key}"`).join(', ');
-    const savedProfile = (await createSql().query(`UPDATE profiles SET ${assignments} WHERE id = $2 RETURNING *`, [JSON.stringify(sanitized), auth.userId]))[0] as Profile | undefined;
+    let savedProfile: Profile | undefined;
+    if (process.env.SUPABASE_DB_URL) {
+      try {
+        const { createSql } = await import("@/lib/db/service");
+        // Column identifiers come exclusively from ALLOWED_PROFILE_KEYS above.
+        const assignments = Object.keys(sanitized).map(key => `"${key}" = (jsonb_populate_record(NULL::profiles, $1::jsonb))."${key}"`).join(', ');
+        savedProfile = (await createSql().query(`UPDATE profiles SET ${assignments} WHERE id = $2 RETURNING *`, [JSON.stringify(sanitized), auth.userId]))[0] as Profile | undefined;
+      } catch (sqlErr) {
+        console.warn('createSql failed in profile PATCH, falling back to Supabase client:', sqlErr);
+      }
+    }
+
+    if (!savedProfile) {
+      const { createClient } = await import("@/lib/db/server");
+      const supabase = await createClient();
+      const { data, error } = await supabase.from('profiles').update(sanitized).eq('id', auth.userId).select().maybeSingle();
+      if (error) throw error;
+      savedProfile = data as Profile;
+    }
+
     if (!savedProfile) throw new Error("Profile could not be found. Please sign in again.");
 
     return NextResponse.json({

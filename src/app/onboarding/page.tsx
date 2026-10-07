@@ -196,9 +196,9 @@ export default function OnboardingPage() {
           ) : (
             <Link href="/" className="font-black text-xl tracking-tight text-[var(--ink)] flex items-center gap-1.5">
               <span className="w-8 h-8 rounded-xl bg-[#58CC02] text-white flex items-center justify-center font-black text-base shadow-[0_2px_0_#46A302]">
-                e
+                b
               </span>
-              elara<span className="text-[#58CC02]">.</span>
+              build2ship<span className="text-[#58CC02]">.</span>
             </Link>
           )}
 

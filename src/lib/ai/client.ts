@@ -2,6 +2,7 @@
 // AI CLIENT — server-side providers with bounded retries
 // Keys stay server-side. Rate limits enforced per-user.
 // ============================================================
+import 'server-only';
 import OpenAI from "openai";
 import { reserveUsage } from "@/lib/payments/entitlements";
 

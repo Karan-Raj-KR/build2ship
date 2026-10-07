@@ -12,7 +12,7 @@ export async function GET() {
       // Identifiers come only from the fixed export table map above.
       data[table] = await sql.query(`SELECT * FROM "${table}" WHERE "${column}" = $1`, [auth.userId]);
     }));
-    return NextResponse.json(data, { headers: { 'Cache-Control': 'no-store', 'Content-Disposition': 'attachment; filename="elara-export.json"' } });
+    return NextResponse.json(data, { headers: { 'Cache-Control': 'no-store', 'Content-Disposition': 'attachment; filename="build2ship-export.json"' } });
   } catch (error) { return NextResponse.json({ error: error instanceof Error ? error.message : 'Export failed; no partial export was presented as complete.' }, { status: 500 }); }
 }
 export async function DELETE(request: NextRequest) {

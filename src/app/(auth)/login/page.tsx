@@ -65,10 +65,10 @@ export default function LoginPage() {
         <div className="text-center space-y-2">
           <Link href="/" className="inline-flex items-center gap-2.5 group" aria-label={`${APP_NAME} home`}>
             <span className="w-10 h-10 rounded-2xl bg-[#58CC02] text-white flex items-center justify-center font-black text-2xl shadow-[0_3px_0_#46A302]">
-              e
+              b
             </span>
             <span className="text-2xl font-black tracking-tight text-[var(--ink)]">
-              elara<span className="text-[#58CC02]">.</span>
+              build2ship<span className="text-[#58CC02]">.</span>
             </span>
           </Link>
           <h1 className="text-3xl font-black text-[var(--ink)] tracking-tight">

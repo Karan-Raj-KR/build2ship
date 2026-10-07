@@ -1,5 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { CANONICAL_NAV_GROUPS, CANONICAL_NAV_ITEMS } from "@/components/layout/AppNav";
+import { APP_NAME } from '@/config/app';
 import { evaluateComparisonItem, computeDecisionSummary } from "@/lib/compare/engine";
 import { Opportunity, Profile } from "@/types/database";
 
@@ -28,7 +29,7 @@ describe("1. Canonical Grouped Navigation Definition", () => {
       { id: "scout", label: "Scout", href: "/scout" },
       { id: "library", label: "Library", href: "/library" },
       { id: "compare", label: "Compare", href: "/compare" },
-      { id: "ask", label: "Ask Elara", href: "/ask" },
+      { id: "ask", label: `Ask ${APP_NAME}`, href: "/ask" },
       { id: "ai-bridge", label: "AI Bridge", href: "/ai-bridge" },
       { id: "import", label: "Import", href: "/ingest" },
       { id: "contributions", label: "Build your open source experience", href: "/contributions" },

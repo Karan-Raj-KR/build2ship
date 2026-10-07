@@ -15,10 +15,10 @@ export function LandingFooter() {
               className="inline-flex items-center gap-2.5 text-2xl font-black tracking-tight text-[var(--ink)]"
             >
               <span className="w-8 h-8 rounded-xl bg-[#58CC02] text-white flex items-center justify-center font-black text-lg shadow-[0_2px_0_#46A302]">
-                e
+                b
               </span>
               <span>
-                elara<span className="text-[#58CC02]">.</span>
+                build2ship<span className="text-[#58CC02]">.</span>
               </span>
             </Link>
             <p className="max-w-[38ch] text-[var(--ink-secondary)] font-semibold leading-relaxed text-sm">
@@ -52,7 +52,7 @@ export function LandingFooter() {
               </li>
               <li>
                 <a href="#comparison" className="hover:text-[var(--primary-dark)] transition-colors">
-                  Why Elara
+                  Why build2ship
                 </a>
               </li>
               <li>

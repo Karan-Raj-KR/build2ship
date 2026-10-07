@@ -103,7 +103,7 @@ export function ProgressHeader() {
     : pathname.startsWith('/scout')
     ? 'Scout'
     : pathname.startsWith('/ask')
-    ? 'Ask Elara'
+    ? 'Ask build2ship'
     : pathname.startsWith('/workspace')
     ? 'Applications'
     : pathname.startsWith('/saved')

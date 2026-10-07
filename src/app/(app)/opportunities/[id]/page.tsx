@@ -512,7 +512,7 @@ export default function OpportunityDetailPage() {
         <div>
           <h2 className="text-lg font-black text-[var(--ink)]">Ready to take action?</h2>
           <p className="text-xs font-semibold text-[var(--muted)] mt-1">
-            Track tasks and document preparation inside your Elara workspace.
+            Track tasks and document preparation inside your build2ship workspace.
           </p>
         </div>
 

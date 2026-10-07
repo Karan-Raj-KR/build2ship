@@ -184,7 +184,7 @@ export function PreparationChecklist({
       {/* External submission callout without auto-submitting */}
       <div className="pt-4 border-t-2 border-[var(--line)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-[var(--canvas)] p-4 rounded-xl">
         <p className="text-xs font-semibold text-[var(--muted)] leading-relaxed">
-          ℹ️ Preparing in Elara does not automatically submit your application. You submit directly with the provider when ready.
+          ℹ️ Preparing in build2ship does not automatically submit your application. You submit directly with the provider when ready.
         </p>
 
         {(opportunity.official_url || opportunity.source_url) && (

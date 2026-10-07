@@ -5,7 +5,7 @@ import styles from "./landing.module.css";
 export function LandingHeader() {
   return <header className={styles.header}>
     <div className={styles.headerInner}>
-      <Link href="/" className={styles.wordmark} aria-label="Elara home"><span aria-hidden="true">e</span>elara.</Link>
+      <Link href="/" className={styles.wordmark} aria-label="build2ship home"><span aria-hidden="true">b</span>build2ship.</Link>
       <nav aria-label="Page navigation">
         <a href="#catalogue">Explore opportunities</a>
         <a href="#how-it-works">How it works</a>

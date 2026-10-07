@@ -224,7 +224,7 @@ Rules:
               </span>
             </div>
             <p className="text-xs font-semibold text-[var(--ink-muted)] mt-0.5">
-              Export portable context prompts to external LLMs and import structured opportunity responses back into Elara.
+              Export portable context prompts to external LLMs and import structured opportunity responses back into build2ship.
             </p>
           </div>
         </div>
