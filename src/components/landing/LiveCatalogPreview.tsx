@@ -176,7 +176,13 @@ export function LiveCatalogPreview() {
       </div>
       <div className={styles.catalogGrid}>
         {items.map(item => <article className="adventure-opportunity" key={item.id}>
-          <div className="adventure-cardtop"><span className="adventure-cardtype">{item.category} <span className="badge adventure-demo-label">Example</span></span><button className={`adventure-save ${savedIds.has(item.id) ? 'saved' : ''}`} aria-label={`${savedIds.has(item.id) ? 'Unsave' : 'Save'} ${item.title} in this preview`} aria-pressed={savedIds.has(item.id)} onClick={() => toggleSave(item.id)}><Bookmark size={20} fill={savedIds.has(item.id) ? 'currentColor' : 'none'} aria-hidden="true"/></button></div>
+          <div className="adventure-cardtop">
+            <div className="flex items-center gap-1.5 flex-wrap">
+              <span className="adventure-cardtype capitalize">{item.category}</span>
+              <span className="badge text-[11px] font-bold text-zinc-500 bg-zinc-100 border-zinc-200">Example</span>
+            </div>
+            <button className={`adventure-save ${savedIds.has(item.id) ? 'saved' : ''}`} aria-label={`${savedIds.has(item.id) ? 'Unsave' : 'Save'} ${item.title} in this preview`} aria-pressed={savedIds.has(item.id)} onClick={() => toggleSave(item.id)}><Bookmark size={20} fill={savedIds.has(item.id) ? 'currentColor' : 'none'} aria-hidden="true"/></button>
+          </div>
           <h3>{item.title}</h3><p className="adventure-carddomain">{item.organizer}</p>
           <div className={styles.catalogFacts}><span><MapPin size={15} aria-hidden="true"/>{item.location} · {item.mode}</span><span><Wallet size={15} aria-hidden="true"/>{item.funding}</span></div>
           <p className="adventure-eligibility"><strong>Requirements to confirm</strong><br/>{item.eligibilitySummary}</p>
@@ -196,7 +202,13 @@ export function LiveCatalogPreview() {
         }}
       >
         {inspectItem && <>
-          <div className="adventure-dialoghead"><span className="adventure-cardtype">{inspectItem.category} · Example</span><button className="adventure-close" aria-label="Close programme details" onClick={() => dialog.current?.close()}><X size={20} aria-hidden="true"/></button></div>
+          <div className="adventure-dialoghead">
+            <div className="flex items-center gap-2">
+              <span className="adventure-cardtype capitalize">{inspectItem.category}</span>
+              <span className="badge text-[11px] font-bold text-zinc-500 bg-zinc-100 border-zinc-200">Example</span>
+            </div>
+            <button className="adventure-close" aria-label="Close programme details" onClick={() => dialog.current?.close()}><X size={20} aria-hidden="true"/></button>
+          </div>
           <h2 id="example-title">{inspectItem.title}</h2><p>{inspectItem.organizer}</p>
           <p className="adventure-note">This is a static programme example. Confirm current funding, deadlines, eligibility, and visa terms with the official provider.</p>
           <div className="adventure-detailfacts"><div><small>ILLUSTRATIVE FUNDING</small><strong>{inspectItem.funding}</strong></div><div><small>RECORDED DEADLINE · CONFIRM WITH PROVIDER</small><strong>{inspectItem.deadline}</strong></div><div><small>LOCATION</small><strong>{inspectItem.location}</strong></div><div><small>RECORDED VISA INFORMATION · CONFIRM</small><strong>{inspectItem.visa}</strong></div></div>
