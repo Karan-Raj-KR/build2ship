@@ -996,19 +996,27 @@ h1, h2, h3 {
 
 /* Duolingo Opportunity Detail Modal */
 .adventure-detail {
+  position: fixed;
+  inset: 0;
+  margin: auto;
   border: 2px solid var(--line);
   border-radius: 24px;
   padding: 28px;
   width: min(92vw, 680px);
   max-height: 88vh;
   overflow-y: auto;
-  box-shadow: 0 12px 32px rgba(38, 50, 56, 0.15);
+  box-shadow: 0 20px 48px rgba(38, 50, 56, 0.2);
   background: #FFFFFF;
+  z-index: 100;
 }
 
 .adventure-detail::backdrop {
-  background: rgba(38, 50, 56, 0.45);
-  backdrop-filter: blur(4px);
+  background: rgba(38, 50, 56, 0.6);
+  backdrop-filter: blur(6px);
+}
+
+.adventure-detail:not([open]) {
+  display: none;
 }
 
 .adventure-detail h2 {

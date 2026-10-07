@@ -184,7 +184,17 @@ export function LiveCatalogPreview() {
         </article>)}
       </div>
       {!items.length && <div className="adventure-empty"><h3>No examples match your search.</h3><p>Try another programme type or clear your filters.</p><button className="btn btn-secondary" onClick={() => { setCategory('all'); setSearch(''); }}>Clear filters</button></div>}
-      <dialog ref={dialog} className="adventure-detail" aria-labelledby="example-title" onClose={() => setInspectItem(null)}>
+      <dialog
+        ref={dialog}
+        className="adventure-detail"
+        aria-labelledby="example-title"
+        onClose={() => setInspectItem(null)}
+        onClick={(e) => {
+          if (e.target === e.currentTarget) {
+            dialog.current?.close();
+          }
+        }}
+      >
         {inspectItem && <>
           <div className="adventure-dialoghead"><span className="adventure-cardtype">{inspectItem.category} · Example</span><button className="adventure-close" aria-label="Close programme details" onClick={() => dialog.current?.close()}><X size={20} aria-hidden="true"/></button></div>
           <h2 id="example-title">{inspectItem.title}</h2><p>{inspectItem.organizer}</p>
