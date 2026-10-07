@@ -22,6 +22,8 @@ import {
   X,
   Search,
   Code2,
+  PanelLeftClose,
+  PanelLeftOpen,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
@@ -68,7 +70,7 @@ export const CANONICAL_NAV_ITEMS = Object.freeze(CANONICAL_NAV_GROUPS.flatMap((g
 // Primary Duolingo navigation hierarchy
 const MOBILE_NAV_IDS = ['today', 'discover', 'applications', 'profile'];
 
-export function AppNav({ displayName, onSignOut }: { displayName?: string | null; onSignOut?: () => void }) {
+export function AppNav({ displayName, onSignOut, collapsed = false, onToggleSidebar }: { displayName?: string | null; onSignOut?: () => void; collapsed?: boolean; onToggleSidebar?: () => void }) {
   const pathname = usePathname();
   const [more, setMore] = useState(false);
   const mobileDialog = useRef<HTMLDialogElement>(null);
@@ -119,6 +121,8 @@ export function AppNav({ displayName, onSignOut }: { displayName?: string | null
         href={item.href}
         className={`adventure-navitem ${isMobile ? 'mobile' : ''} ${active ? 'active' : ''}`}
         aria-current={active ? 'page' : undefined}
+        aria-label={item.label}
+        title={collapsed && !isMobile ? item.label : undefined}
         onClick={() => setMore(false)}
       >
         <Icon size={isMobile ? 22 : 20} strokeWidth={active ? 2.5 : 2} />
@@ -130,13 +134,28 @@ export function AppNav({ displayName, onSignOut }: { displayName?: string | null
   return (
     <>
       {/* Desktop Tactile Sidebar */}
-      <aside className="adventure-sidebar" aria-label="Sidebar navigation">
-        <Link href="/home" className="adventure-brand" aria-label="build2ship home">
-          <span>b</span>
-          build2ship<b>.</b>
-        </Link>
+      <aside id="app-sidebar" className="adventure-sidebar" aria-label="Sidebar navigation">
+        <div className="adventure-sidebar-header">
+          <Link href="/home" className="adventure-brand" aria-label="build2ship home">
+            <span>b</span>
+            <span className="adventure-brand-text">build2ship<b>.</b></span>
+          </Link>
+          {onToggleSidebar && (
+            <button
+              type="button"
+              className="adventure-sidebar-toggle"
+              onClick={onToggleSidebar}
+              aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+              aria-expanded={!collapsed}
+              aria-controls="sidebar-links"
+              title={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+            >
+              {collapsed ? <PanelLeftOpen size={18} /> : <PanelLeftClose size={18} />}
+            </button>
+          )}
+        </div>
 
-        <nav aria-label="Main navigation">
+        <nav id="sidebar-links" aria-label="Main navigation">
           <span className="adventure-navlabel">Primary</span>
           {primaryItems.map((item) => renderNavLink(item))}
 
@@ -144,18 +163,18 @@ export function AppNav({ displayName, onSignOut }: { displayName?: string | null
           {secondaryExploreItems.map((item) => renderNavLink(item))}
 
           <details className="adventure-moretools">
-            <summary>More tools</summary>
+            <summary aria-label="More tools" title={collapsed ? 'More tools' : undefined}><Menu size={16}/><span>More tools</span></summary>
             {moreToolItems.map((item) => renderNavLink(item))}
           </details>
         </nav>
 
         <div className="adventure-sidebarbottom">
-          <Link href="/billing" className="adventure-navitem">
+          <Link href="/billing" className="adventure-navitem" aria-label="Access & billing" title={collapsed ? 'Access & billing' : undefined}>
             <CreditCard size={18} />
             <span>Access & billing</span>
           </Link>
           <div className="adventure-account">
-            <Link href="/profile" className="flex items-center gap-2 flex-1 min-w-0">
+            <Link href="/profile" className="flex items-center gap-2 flex-1 min-w-0" aria-label={displayName ? `${displayName} — My profile` : 'My profile'} title={displayName || 'My profile'}>
               <span className="adventure-avatar" aria-hidden="true">
                 {displayName?.[0]?.toUpperCase() || <UserRound size={16} />}
               </span>

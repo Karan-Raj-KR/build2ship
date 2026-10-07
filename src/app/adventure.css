@@ -151,14 +151,15 @@ h1, h2, h3 {
   position: fixed;
   inset: 0 auto 0 0;
   width: 240px;
-  padding: 24px 16px 20px;
+  padding: 16px 12px 16px;
   background: #FFFFFF;
   color: var(--ink);
   border-right: 2px solid var(--line);
   display: flex;
   flex-direction: column;
   z-index: 40;
-  overflow-y: auto;
+  overflow: hidden;
+  transition: width 180ms cubic-bezier(0.16, 1, 0.3, 1), padding 180ms ease;
 }
 
 @media (max-width: 900px) {
@@ -167,40 +168,202 @@ h1, h2, h3 {
   }
 }
 
+.adventure-sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 44px;
+  flex-shrink: 0;
+}
+
 .adventure-brand {
   display: flex;
   align-items: center;
   text-decoration: none;
-  font-size: 26px;
+  font-size: 24px;
   font-weight: 900;
   letter-spacing: -0.04em;
   color: var(--ink);
-  padding: 4px 8px;
+  padding: 2px;
+  min-width: 0;
+  flex: 1;
 }
 
-.adventure-brand > span {
+.adventure-brand > span:first-child {
   display: grid;
   place-items: center;
   background: var(--primary);
   color: #FFFFFF;
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
+  min-width: 38px;
   border-radius: 12px;
   font-size: 22px;
   font-weight: 900;
-  margin-right: 10px;
+  margin-right: 8px;
   box-shadow: 0 3px 0 var(--primary-depth);
+  flex-shrink: 0;
 }
 
-.adventure-brand > b {
+.adventure-brand-text {
+  display: inline-flex;
+  align-items: baseline;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.adventure-brand-text b {
   color: var(--primary);
 }
 
+.adventure-sidebar-toggle {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  min-width: 34px;
+  border-radius: 10px;
+  border: 1.5px solid transparent;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 120ms ease;
+}
+
+.adventure-sidebar-toggle:hover {
+  background: var(--canvas);
+  color: var(--ink);
+  border-color: var(--line);
+}
+
+.adventure-sidebar-toggle:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
 .adventure-sidebar > nav {
-  margin-top: 28px;
+  margin-top: 16px;
   display: flex;
   flex-direction: column;
   gap: 4px;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--line) transparent;
+}
+
+.adventure-sidebar > nav::-webkit-scrollbar {
+  width: 4px;
+}
+
+.adventure-sidebar > nav::-webkit-scrollbar-thumb {
+  background: var(--line);
+  border-radius: 4px;
+}
+
+.adventure-moretools summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+@media (min-width: 901px) {
+  .sidebar-collapsed .adventure-sidebar {
+    width: 68px;
+    padding: 16px 8px;
+  }
+  .sidebar-collapsed .adventure-shellbody {
+    margin-left: 68px;
+  }
+  .sidebar-collapsed .adventure-skip {
+    left: 80px;
+  }
+  .sidebar-collapsed .adventure-sidebar-header {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  .sidebar-collapsed .adventure-brand {
+    justify-content: center;
+    padding: 0;
+    flex: none;
+    width: 100%;
+  }
+  .sidebar-collapsed .adventure-brand > span:first-child {
+    margin-right: 0;
+  }
+  .sidebar-collapsed .adventure-brand-text,
+  .sidebar-collapsed .adventure-navlabel,
+  .sidebar-collapsed .adventure-navitem > span,
+  .sidebar-collapsed .adventure-moretools summary > span,
+  .sidebar-collapsed .adventure-account strong {
+    display: none !important;
+  }
+  .sidebar-collapsed .adventure-sidebar-toggle {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    border: 1px solid var(--line);
+    background: var(--canvas);
+    margin: 0 auto;
+  }
+  .sidebar-collapsed .adventure-sidebar .adventure-navitem {
+    justify-content: center;
+    padding: 0;
+    width: 44px;
+    height: 44px;
+    min-height: 44px;
+    margin: 0 auto;
+    border-radius: 12px;
+  }
+  .sidebar-collapsed .adventure-moretools summary {
+    justify-content: center;
+    padding: 0;
+    width: 44px;
+    height: 44px;
+    margin: 0 auto;
+    border-radius: 12px;
+  }
+  .sidebar-collapsed .adventure-sidebarbottom {
+    padding-top: 12px;
+    align-items: center;
+  }
+  .sidebar-collapsed .adventure-sidebarbottom .adventure-navitem {
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    margin: 0 auto;
+  }
+  .sidebar-collapsed .adventure-account {
+    flex-direction: column;
+    padding: 6px 4px;
+    width: 48px;
+    margin: 0 auto;
+    gap: 6px;
+    align-items: center;
+  }
+  .sidebar-collapsed .adventure-account > a:first-child {
+    flex: none;
+    justify-content: center;
+    width: 100%;
+  }
+  .sidebar-collapsed .adventure-account .adventure-avatar {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+  }
+  .sidebar-collapsed .adventure-account .adventure-icon-btn {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    min-height: 32px;
+  }
 }
 
 .adventure-navlabel {
@@ -288,6 +451,7 @@ h1, h2, h3 {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  flex-shrink: 0;
 }
 
 .adventure-account {
