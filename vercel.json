@@ -1,0 +1,23 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "regions": ["sin1"],
+  "git": {
+    "deploymentEnabled": {
+      "codex/launch-readiness-2026-10-06": false
+    }
+  },
+  "crons": [
+    {
+      "path": "/api/cron/deadlines",
+      "schedule": "0 8 * * *"
+    },
+    {
+      "path": "/api/cron/scout",
+      "schedule": "0 9 * * *"
+    },
+    {
+      "path": "/api/cron/digest",
+      "schedule": "0 10 * * *"
+    }
+  ]
+}

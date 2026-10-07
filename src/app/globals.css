@@ -1,0 +1,853 @@
+@import "tailwindcss";
+
+/* ============================================================
+   DUOLINGO-INSPIRED VISUAL SYSTEM — ELARA
+   Friendly, tactile, confident, 2px borders & 3D button depths.
+   ============================================================ */
+
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url('/fonts/nunito-latin.ttf') format('truetype');
+}
+
+@theme inline {
+  --font-sans: 'Nunito', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --color-primary: #58CC02;
+  --color-primary-depth: #46A302;
+  --color-primary-subtle: #EEFFD9;
+  --color-blue: #1CB0F6;
+  --color-purple: #A568CC;
+  --color-amber: #FFB020;
+  --color-danger: #D93B3B;
+  --color-ink: #263238;
+  --color-muted: #66727A;
+  --color-border: #E3E7EA;
+  --color-canvas: #F7F9FA;
+  --color-surface: #FFFFFF;
+}
+
+:root {
+  /* Duolingo Primary Colors */
+  --primary: #58CC02;
+  --primary-hover: #61E002;
+  --primary-depth: #46A302;
+  --primary-subtle: #EEFFD9;
+  --primary-border: #B7E885;
+  --primary-text: #287300;
+
+  /* Accents */
+  --blue: #1CB0F6;
+  --blue-hover: #38BDFF;
+  --blue-depth: #1899D6;
+  --blue-subtle: #DDF4FF;
+  --blue-border: #99DAFC;
+  --blue-text: #0E74A6;
+
+  --purple: #A568CC;
+  --purple-hover: #B57DDA;
+  --purple-depth: #8B54B2;
+  --purple-subtle: #F3E8FA;
+  --purple-border: #D8BCEE;
+  --purple-text: #69328C;
+
+  --amber: #FFB020;
+  --amber-hover: #FFBC3D;
+  --amber-depth: #E59800;
+  --amber-subtle: #FFF5E0;
+  --amber-border: #FCD68A;
+  --amber-text: #966100;
+
+  --danger: #D93B3B;
+  --danger-hover: #E85050;
+  --danger-depth: #BC2525;
+  --danger-subtle: #FEEAEA;
+  --danger-border: #F8B4B4;
+  --danger-text: #9E1616;
+
+  /* Canvas & Surfaces */
+  --canvas: #F7F9FA;
+  --background: #FFFFFF;
+  --workspace: #FFFFFF;
+  --surface-main: #FFFFFF;
+  --surface-subtle: #F7F9FA;
+  --surface-raised: #FFFFFF;
+  --surface-interactive: #F0F3F5;
+  --surface-selected: #EEFFD9;
+  --border-selected: #58CC02;
+
+  /* Typography */
+  --ink: #263238;
+  --foreground: #263238;
+  --muted: #66727A;
+  --ink-muted: #66727A;
+  --subtle: #8A98A0;
+
+  /* Borders & Dividers */
+  --line: #E3E7EA;
+  --line-strong: #CFD6DC;
+  --border: #E3E7EA;
+
+  /* Semantic Status Mappings */
+  --success: #58CC02;
+  --success-bg: #EEFFD9;
+  --success-text: #287300;
+  --success-border: #58CC02;
+
+  --warning: #FFB020;
+  --warning-bg: #FFF5E0;
+  --warning-text: #966100;
+  --warning-border: #FFB020;
+
+  --cyan: #1CB0F6;
+  --cyan-hover: #38BDFF;
+  --lime: #EEFFD9;
+  --lime-ink: #287300;
+  --rail: #263238;
+  --rail-muted: #66727A;
+
+  /* Radii */
+  --radius-xs: 8px;
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 20px;
+  --radius-xl: 24px;
+  --radius-pill: 9999px;
+
+  /* Tactile Duolingo 3D Bottom Shadows */
+  --shadow-xs: 0 2px 0 var(--line);
+  --shadow-card: 0 4px 0 #E3E7EA;
+  --shadow-card-hover: 0 4px 0 #CFD6DC;
+  --shadow-btn: 0 4px 0 var(--primary-depth);
+  --shadow-btn-sec: 0 3px 0 #CFD6DC;
+  --shadow-panel: 0 3px 0 var(--line);
+  --shadow-lift: 0 6px 0 var(--line);
+
+  /* Motion */
+  --motion-fast: 140ms;
+  --motion-standard: 180ms;
+  --ease-out: cubic-bezier(.2, .8, .2, 1);
+  --layer-nav: 40;
+  --layer-overlay: 70;
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+  background: var(--canvas);
+}
+
+body {
+  min-height: 100%;
+  margin: 0;
+  overflow-x: hidden;
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: 'Nunito', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Nunito', ui-sans-serif, system-ui, sans-serif;
+  font-weight: 800;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+}
+
+button, input, select, textarea {
+  font-family: inherit;
+}
+
+button:not(:disabled), [role="button"] {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+::selection {
+  background: var(--primary-subtle);
+  color: var(--primary-text);
+}
+
+*:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--line-strong);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted);
+}
+
+/* ------------------------------------------------------------
+   CORE LAYOUT
+   ------------------------------------------------------------ */
+.app-shell {
+  min-height: 100dvh;
+  background: var(--canvas);
+}
+
+.app-content {
+  width: min(100%, 82rem);
+  margin-inline: auto;
+  min-width: 0;
+  padding: clamp(1.25rem, 2.5vw, 2.25rem);
+  padding-bottom: calc(5.5rem + env(safe-area-inset-bottom));
+}
+
+@media (min-width: 768px) {
+  .app-content {
+    padding-bottom: 2.5rem;
+  }
+}
+
+.page-frame {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  min-width: 0;
+}
+
+.page-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.page-title {
+  margin: 0;
+  color: var(--ink);
+  font-size: clamp(1.75rem, 2.2vw + 1rem, 2.5rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+
+.section-title {
+  margin: 0 0 0.5rem;
+  color: var(--ink);
+  font-size: clamp(1.15rem, 0.5vw + 1rem, 1.45rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+}
+
+.panel-title {
+  color: var(--ink);
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.eyebrow {
+  color: var(--primary-text);
+  background: var(--primary-subtle);
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 0.35rem;
+}
+
+.action-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+/* ------------------------------------------------------------
+   TACTILE DUOLINGO BUTTONS
+   ------------------------------------------------------------ */
+.btn {
+  display: inline-flex;
+  min-height: 44px;
+  max-width: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 2px solid transparent;
+  border-radius: var(--radius-md);
+  padding: 0.65rem 1.15rem;
+  font-family: inherit;
+  font-size: 0.925rem;
+  font-weight: 800;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  touch-action: manipulation;
+  transition: transform 120ms ease, box-shadow 120ms ease, background-color 120ms ease, border-color 120ms ease;
+}
+
+.btn:active:not(:disabled) {
+  transform: translateY(2px);
+}
+
+/* Primary Green 3D Button */
+.btn-primary {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: #FFFFFF;
+  box-shadow: 0 4px 0 var(--primary-depth);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: var(--primary-hover);
+  border-color: var(--primary-hover);
+  color: #FFFFFF;
+}
+
+.btn-primary:active:not(:disabled) {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 var(--primary-depth);
+}
+
+.btn-primary:disabled {
+  background-color: #E3E7EA;
+  border-color: #E3E7EA;
+  color: #8A98A0;
+  box-shadow: 0 3px 0 #CFD6DC;
+  cursor: not-allowed;
+  opacity: 0.85;
+}
+
+/* Secondary Neutral 3D Button */
+.btn-secondary {
+  background-color: #FFFFFF;
+  border-color: var(--line);
+  color: var(--ink);
+  box-shadow: 0 3px 0 var(--line-strong);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background-color: var(--canvas);
+  border-color: var(--line-strong);
+  color: var(--ink);
+}
+
+.btn-secondary:active:not(:disabled) {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 var(--line-strong);
+}
+
+/* Blue Accent 3D Button */
+.btn-blue {
+  background-color: var(--blue);
+  border-color: var(--blue);
+  color: #FFFFFF;
+  box-shadow: 0 4px 0 var(--blue-depth);
+}
+
+.btn-blue:hover:not(:disabled) {
+  background-color: var(--blue-hover);
+  border-color: var(--blue-hover);
+}
+
+.btn-blue:active:not(:disabled) {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 var(--blue-depth);
+}
+
+/* Danger / Destructive 3D Button */
+.btn-danger {
+  background-color: var(--danger);
+  border-color: var(--danger);
+  color: #FFFFFF;
+  box-shadow: 0 4px 0 var(--danger-depth);
+}
+
+.btn-danger:hover:not(:disabled) {
+  background-color: var(--danger-hover);
+  border-color: var(--danger-hover);
+}
+
+.btn-danger:active:not(:disabled) {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 var(--danger-depth);
+}
+
+/* Ghost Button */
+.btn-ghost {
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--muted);
+  box-shadow: none;
+}
+
+.btn-ghost:hover:not(:disabled) {
+  background-color: var(--surface-interactive);
+  color: var(--ink);
+}
+
+.btn-ghost:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.btn-sm {
+  min-height: 38px;
+  padding: 0.45rem 0.85rem;
+  font-size: 0.84rem;
+  border-radius: var(--radius-sm);
+}
+
+.btn-lg {
+  min-height: 52px;
+  padding: 0.85rem 1.65rem;
+  font-size: 1.05rem;
+  border-radius: var(--radius-md);
+}
+
+/* ------------------------------------------------------------
+   TACTILE DUOLINGO CARDS & PANELS
+   ------------------------------------------------------------ */
+.card, .soft-panel {
+  min-width: 0;
+  border: 2px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--surface-main);
+  box-shadow: var(--shadow-card);
+  transition: border-color var(--motion-fast) var(--ease-out), box-shadow var(--motion-fast) var(--ease-out), transform var(--motion-fast) var(--ease-out);
+}
+
+.soft-panel {
+  background: var(--surface-subtle);
+  box-shadow: 0 2px 0 var(--line);
+}
+
+.card:has(a:hover), .card:has(button:hover), .card.interactive:hover {
+  border-color: var(--blue-border);
+  box-shadow: 0 4px 0 var(--blue-border);
+}
+
+/* Tactile Choice Cards (Duolingo question items) */
+.adventure-choice, .choice-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  padding: 1rem 1.25rem;
+  border: 2px solid var(--line);
+  border-radius: var(--radius-md);
+  background: #FFFFFF;
+  box-shadow: 0 3px 0 var(--line);
+  color: var(--ink);
+  font-size: 1rem;
+  font-weight: 750;
+  text-align: left;
+  cursor: pointer;
+  transition: all 120ms ease;
+  user-select: none;
+}
+
+.adventure-choice:hover, .choice-card:hover {
+  background-color: var(--canvas);
+  border-color: var(--blue-border);
+}
+
+.adventure-choice:active, .choice-card:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 var(--line);
+}
+
+.adventure-choice.selected, .choice-card.selected,
+.adventure-choice[aria-pressed="true"], .choice-card[aria-pressed="true"] {
+  border-color: var(--primary);
+  background-color: var(--primary-subtle);
+  color: var(--primary-text);
+  box-shadow: 0 3px 0 var(--primary);
+}
+
+/* ------------------------------------------------------------
+   INPUTS & CONTROLS
+   ------------------------------------------------------------ */
+.input {
+  width: 100%;
+  min-width: 0;
+  min-height: 46px;
+  border: 2px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 0.65rem 0.95rem;
+  color: var(--ink);
+  background: #FFFFFF;
+  outline: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: border-color var(--motion-fast) var(--ease-out), box-shadow var(--motion-fast) var(--ease-out);
+}
+
+.input::placeholder {
+  color: var(--subtle);
+  font-weight: 500;
+}
+
+.input:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px var(--blue-subtle);
+  background: #FFFFFF;
+}
+
+.textarea {
+  min-height: 7rem;
+  resize: vertical;
+}
+
+.label {
+  display: block;
+  margin-bottom: 0.4rem;
+  color: var(--ink);
+  font-size: 0.88rem;
+  font-weight: 800;
+}
+
+.form-hint {
+  margin-top: 0.35rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.form-error {
+  margin-top: 0.35rem;
+  font-size: 0.8rem;
+  color: var(--danger);
+  font-weight: 700;
+}
+
+/* ------------------------------------------------------------
+   BADGES, PILLS & CHIPS
+   ------------------------------------------------------------ */
+.badge, .tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border: 2px solid var(--line);
+  border-radius: 9999px;
+  padding: 0.25rem 0.75rem;
+  color: var(--muted);
+  background: var(--surface-subtle);
+  font-size: 0.78rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.tag {
+  background: var(--surface-interactive);
+  border-color: transparent;
+}
+
+.badge-green, .badge.variant-green {
+  background: var(--primary-subtle);
+  color: var(--primary-text);
+  border-color: var(--primary-border);
+}
+
+.badge-blue, .badge.variant-blue {
+  background: var(--blue-subtle);
+  color: var(--blue-text);
+  border-color: var(--blue-border);
+}
+
+.badge-purple, .badge.variant-purple {
+  background: var(--purple-subtle);
+  color: var(--purple-text);
+  border-color: var(--purple-border);
+}
+
+.badge-amber, .badge-yellow, .badge.variant-yellow {
+  background: var(--amber-subtle);
+  color: var(--amber-text);
+  border-color: var(--amber-border);
+}
+
+.badge-red, .badge.variant-red {
+  background: var(--danger-subtle);
+  color: var(--danger-text);
+  border-color: var(--danger-border);
+}
+
+/* Filter Chips */
+.adventure-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.adventure-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 40px;
+  padding: 0.45rem 1rem;
+  border: 2px solid var(--line);
+  border-radius: 9999px;
+  background: #FFFFFF;
+  box-shadow: 0 2px 0 var(--line);
+  color: var(--ink);
+  font-size: 0.85rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 120ms ease;
+}
+
+.adventure-chip:hover {
+  background: var(--canvas);
+  border-color: var(--line-strong);
+}
+
+.adventure-chip.selected, .adventure-chip[aria-pressed="true"] {
+  border-color: var(--blue);
+  background: var(--blue-subtle);
+  color: var(--blue-text);
+  box-shadow: 0 2px 0 var(--blue);
+}
+
+/* ------------------------------------------------------------
+   DUOLINGO PILL PROGRESS BARS
+   ------------------------------------------------------------ */
+.adventure-meter, .duo-progress {
+  width: 100%;
+  height: 14px;
+  background-color: var(--line);
+  border-radius: 9999px;
+  overflow: hidden;
+  position: relative;
+}
+
+.adventure-meter > span, .duo-progress-fill {
+  display: block;
+  height: 100%;
+  background-color: var(--primary);
+  border-radius: 9999px;
+  transition: width 350ms cubic-bezier(.2, .8, .2, 1), transform 350ms cubic-bezier(.2, .8, .2, 1);
+  position: relative;
+}
+
+/* Subtle top gloss on progress bar */
+.adventure-meter > span::after, .duo-progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 6px;
+  right: 6px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.45);
+  border-radius: 9999px;
+}
+
+/* ------------------------------------------------------------
+   ALERTS
+   ------------------------------------------------------------ */
+.alert {
+  border-radius: var(--radius-md);
+  padding: 0.9rem 1.15rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  border: 2px solid transparent;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.alert-info {
+  color: var(--blue-text);
+  background: var(--blue-subtle);
+  border-color: var(--blue-border);
+}
+
+.alert-warning {
+  color: var(--amber-text);
+  background: var(--amber-subtle);
+  border-color: var(--amber-border);
+}
+
+.alert-error {
+  color: var(--danger-text);
+  background: var(--danger-subtle);
+  border-color: var(--danger-border);
+}
+
+.alert-success {
+  color: var(--primary-text);
+  background: var(--primary-subtle);
+  border-color: var(--primary-border);
+}
+
+/* ------------------------------------------------------------
+   SKELETON & EMPTY STATES
+   ------------------------------------------------------------ */
+.skeleton, .skeleton-card {
+  border-radius: var(--radius-md);
+  background: linear-gradient(90deg, #F0F3F5 25%, #E3E7EA 50%, #F0F3F5 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.3s ease-in-out infinite;
+}
+
+@keyframes skeleton-loading {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+.empty-state, .adventure-empty {
+  padding: clamp(2.5rem, 6vw, 4rem) 1.5rem;
+  border: 2px dashed var(--line);
+  border-radius: var(--radius-xl);
+  background: #FFFFFF;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.empty-state h2, .adventure-empty h2 {
+  font-size: 1.35rem;
+  font-weight: 850;
+  color: var(--ink);
+  margin: 0.75rem 0 0.5rem;
+}
+
+.empty-state p, .adventure-empty p {
+  color: var(--muted);
+  font-size: 0.95rem;
+  max-width: 32rem;
+  margin: 0 0 1.25rem;
+}
+
+/* ------------------------------------------------------------
+   WORKSPACE BOARD & KANBAN COLUMNS
+   ------------------------------------------------------------ */
+.workspace-stage-tabs {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.workspace-stage-tabs button {
+  display: flex;
+  min-height: 46px;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  border: 2px solid var(--line);
+  border-radius: var(--radius-md);
+  color: var(--muted);
+  background: #FFFFFF;
+  box-shadow: 0 2px 0 var(--line);
+  font-size: 0.85rem;
+  font-weight: 800;
+  transition: all 120ms ease;
+}
+
+.workspace-stage-tabs button:hover {
+  background: var(--canvas);
+}
+
+.workspace-stage-tabs button.is-active {
+  border-color: var(--primary);
+  color: var(--primary-text);
+  background: var(--primary-subtle);
+  box-shadow: 0 2px 0 var(--primary);
+}
+
+.workspace-column {
+  min-width: 0;
+  min-height: min(58dvh, 44rem);
+  padding: 1rem;
+  border: 2px solid var(--line);
+  border-radius: var(--radius-xl);
+  background: #FFFFFF;
+  box-shadow: 0 4px 0 var(--line);
+}
+
+.workspace-column.is-dragging {
+  border-style: dashed;
+  border-color: var(--primary);
+  background: var(--primary-subtle);
+}
+
+.workspace-column > header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  margin-bottom: 0.85rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--line);
+}
+
+.workspace-column h2 {
+  margin: 0;
+  color: var(--ink);
+  font-size: 1rem;
+  font-weight: 850;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.workspace-column h2 span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 9999px;
+  background: var(--surface-interactive);
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+.workspace-column p, .workspace-empty {
+  margin: 0.25rem 0 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.workspace-empty {
+  padding: 2rem 1rem;
+  text-align: center;
+  border: 2px dashed var(--line);
+  border-radius: var(--radius-md);
+  margin-top: 0.5rem;
+}
+
+/* ------------------------------------------------------------
+   REDUCED MOTION
+   ------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
