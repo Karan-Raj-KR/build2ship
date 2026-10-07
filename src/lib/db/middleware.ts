@@ -19,7 +19,7 @@ export async function updateSession(request: NextRequest) {
 
   const path = request.nextUrl.pathname;
   const publicPages = ['/', '/login', '/signup', '/forgot-password', '/reset-password', '/demo', '/callback', '/privacy', '/terms', '/refund', '/support'];
-  const publicPrefixes = ['/api/auth/', '/api/session', '/auth/callback', '/api/payments/webhook', '/api/cron/', '/api/notifications/unsubscribe', '/api/scout/query', '/api/runner/'];
+  const publicPrefixes = ['/api/auth/', '/api/session', '/auth/callback', '/api/payments/webhook', '/api/cron/', '/api/notifications/unsubscribe', '/api/scout/query', '/api/runner/', '/full-auto/'];
   if (publicPages.includes(path) || publicPrefixes.some(prefix => path.startsWith(prefix))) return response;
 
   const { data: { user } } = await supabase.auth.getUser();

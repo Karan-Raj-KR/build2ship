@@ -1,6 +1,6 @@
 """Local Full-auto runner. Runs on the STUDENT'S machine with their own `gh` login and Claude Code.
 
-    cd ~/oss-mentor && .venv/bin/python -m backend.runner <job_id> <token> --server http://localhost:8000
+    cd ~/oss-mentor && .venv/bin/python runner.py <job_id> <token> --server http://localhost:3000
 
 What it does, in order:
   1. fetch the job spec (repo, issue) from the web app
