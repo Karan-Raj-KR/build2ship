@@ -119,6 +119,7 @@ export function AppNav({ displayName, onSignOut, collapsed = false, onToggleSide
       <Link
         key={item.id}
         href={item.href}
+        prefetch={item.id === 'contributions' ? true : undefined}
         className={`adventure-navitem ${isMobile ? 'mobile' : ''} ${active ? 'active' : ''}`}
         aria-current={active ? 'page' : undefined}
         aria-label={item.label}

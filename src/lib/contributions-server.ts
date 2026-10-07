@@ -13,7 +13,7 @@ function curated(repo: string) {
   if (!entry) throw new GitHubReadError('Choose a curated repository.', 400);
   return entry;
 }
-async function github(path: string, optional = false) {
+export async function github(path: string, optional = false) {
   let response: Response;
   try {
     response = await fetch(`https://api.github.com${path}`, { headers: {

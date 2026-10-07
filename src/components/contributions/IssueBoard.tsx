@@ -1,6 +1,7 @@
 'use client';
 // Port of moreee/frontend/v2/IssueBoard.jsx, with truthful public-read status.
 import type { ContributionIssue } from '@/lib/contributions';
+import Link from 'next/link';
 export default function IssueBoard({ issues, repo, fetchedAt, onPick, onBack, busy }: {
   issues: ContributionIssue[]; repo: string; fetchedAt: string;
   onPick: (issue: ContributionIssue) => void; onBack: () => void; busy: boolean;
@@ -17,6 +18,7 @@ export default function IssueBoard({ issues, repo, fetchedAt, onPick, onBack, bu
       <div className="mt-4 flex flex-wrap gap-2">{issue.labels.map(l => <span key={l} className="rounded-full bg-white/10 px-3 py-1 text-xs text-zinc-200">{l}</span>)}</div>
       <div className="my-6 space-y-2 rounded-2xl bg-white/5 p-4"><p className="font-bold text-amber-200">Confirm with maintainer</p><p className="text-sm leading-relaxed text-zinc-200">Unassigned does not establish availability. Read the discussion, contribution guidance and current AI policy before starting.</p><p className="text-xs text-zinc-300">Fetched {new Date(issue.fetchedAt).toLocaleString()}</p></div>
       <button onClick={() => onPick(issue)} disabled={busy} className="mt-auto w-full rounded-full bg-white px-6 py-3.5 text-base font-extrabold text-zinc-950 transition duration-200 hover:scale-[1.03] focus-visible:ring-4 focus-visible:ring-sky-400 disabled:opacity-50 disabled:hover:scale-100">{busy ? 'Preparing your plan…' : 'Understand this contribution →'}</button>
+      <Link href={`/contributions/full-auto?repo=${encodeURIComponent(issue.repo)}&number=${issue.number}`} className="mt-4 text-center text-sm font-bold text-sky-200 underline-offset-4 hover:underline">Full-auto setup · separate feature →</Link>
     </article>)}</div>
   </section>;
 }

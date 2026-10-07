@@ -1,16 +1,16 @@
 'use client';
 // Adapted from havinash-007/moreee frontend/v2/HeroSection.jsx; visual structure preserved.
-// Customize: headline, subcopy, CTA labels, gradient colors (gold), the three stat chips.
-// Self-contained: React only. Transparent background on purpose so the 3D galaxy shows through.
+// The profile is supplied by the host app; no separate GitHub login is introduced.
 export default function HeroSection({
   onStart = () => {},
   onLogin = null,            // pass a function to show "Continue with GitHub" instead of Start
   orgCount = 3,
-}: { onStart?: () => void; onLogin?: (() => void) | null; orgCount?: number; }) {
+  profileReady = true,
+}: { onStart?: () => void; onLogin?: (() => void) | null; orgCount?: number; profileReady?: boolean; }) {
   const stats = [
     ['2', 'preferences at most'],
-    [String(orgCount), 'organisations scored'],
-    ['1', 'saved contribution plan'],
+    [String(orgCount), 'curated repositories'],
+    ['1', 'plan to build'],
   ];
   return (
     <section className="relative flex min-h-[86vh] items-center px-6 py-20 md:px-20 pointer-events-none">
@@ -47,7 +47,7 @@ export default function HeroSection({
               Find my first issue →
             </button>
           )}
-          <span className="text-sm font-semibold text-zinc-400">Your skills, interests and experience are already connected.</span>
+          <span className="text-sm font-semibold text-zinc-400">{profileReady ? 'Uses the skills, interests and experience in your profile.' : 'Complete your profile to personalize your contribution path.'}</span>
         </div>
         <dl className="mt-14 flex flex-wrap gap-x-12 gap-y-6">
           {stats.map(([n, label]) => (

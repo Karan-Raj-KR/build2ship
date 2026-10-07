@@ -100,10 +100,9 @@ export async function chatCompletion(options: ChatCompletionOptions): Promise<st
       // Strip markdown code fences or extract outermost JSON if JSON was requested
       if (options.responseFormat) {
         content = content.trim();
-        if (content.startsWith("```json")) {
-          content = content.replace(/^```json\s*/, "").replace(/\s*```$/, "");
-        } else if (content.startsWith("```")) {
-          content = content.replace(/^```\s*/, "").replace(/\s*```$/, "");
+        const fenced = content.match(/```(?:json)?\s*([\s\S]*?)```/i);
+        if (fenced) {
+          content = fenced[1].trim();
         } else {
           // If the model enclosed JSON in narrative text, extract the outermost JSON structure
           const firstBrace = content.indexOf("{");
@@ -111,6 +110,11 @@ export async function chatCompletion(options: ChatCompletionOptions): Promise<st
           if (firstBrace !== -1 && lastBrace > firstBrace) {
             content = content.slice(firstBrace, lastBrace + 1);
           }
+        }
+        try {
+          JSON.parse(content);
+        } catch {
+          throw new AIError("Model returned invalid JSON. Please retry.", "invalid_response");
         }
       }
 

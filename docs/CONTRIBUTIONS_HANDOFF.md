@@ -10,7 +10,7 @@ The user subsequently requested Supabase for the entire runtime. Supabase Auth, 
 
 The earlier Neon restoration followed the original hackathon instructions. Its live QA results below are historical evidence for the contribution flow, not verification of the current Supabase deployment.
 
-`SUPABASE_DB_URL` remains missing from `.env.local`. The configured Supabase REST profile-table read returned HTTP 404; the schema still needs inspection and verification. No schema migration or existing-user/data transfer has been completed. No push or deployment was performed.
+Current local runtime uses the configured Supabase database and Auth. Schema migrations and public catalogue import are complete. This integration shares the existing Supabase account and profile; no separate OSS Mentor login or database was introduced. Historical Neon accounts and saved user work have not been migrated. No push or deployment was performed for this integration.
 
 ## Data and AI behavior
 
@@ -18,7 +18,7 @@ The earlier Neon restoration followed the original hackathon instructions. Its l
 - Pull requests, closed issues, assigned issues and records lacking assignment-state evidence are excluded. Beginner labels and contribution preference influence ordering; scope is unverified.
 - Issue claim comments, linked pull requests and actual maintainer availability are not checked. Every candidate says **Confirm with maintainer**. Unassigned never means available.
 - README and root `CONTRIBUTING.md` excerpts are fetched for the selected issue; a genuine missing contribution guide is distinguished from read errors. Excerpts are bounded and links/timestamps are displayed. External guide links are not crawled.
-- The existing OpenAI-compatible AI adapter and per-account quota reservation generate the fit explanation, repository context, checklist and one understanding question. The prompt treats profile and fetched content as untrusted data, restricts claims to supplied sources, and prohibits invented commands, files, policies or test results. Output still needs human review.
+- The existing server-only AI adapter (Anthropic takes precedence when configured) and per-account quota reservation generate the fit explanation, repository context, checklist and one understanding question. The prompt treats profile and fetched content as untrusted data, restricts claims to supplied sources, and prohibits invented commands, files, policies or test results. Output still needs human review.
 - GitHub rate-limit/fetch errors and unavailable AI states are explicit. There are no sample fixtures represented as live results, static AI substitutes, worker agents or GitHub writes.
 - A generated plan is signed for its authenticated account and expires for saving after 30 minutes. Already saved plans do not expire.
 - One SQL statement saves a private draft opportunity, an existing application record and checklist tasks. Original plan/progress is preserved on duplicate saves. Plans are also readable in workspace notes; contribution checkboxes and saved/preparing stages are managed on the contribution page.
@@ -52,10 +52,27 @@ The earlier Neon restoration followed the original hackathon instructions. Its l
 
 Current runtime: `SUPABASE_DB_URL`, `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` (or `NEXT_PUBLIC_SUPABASE_ANON_KEY`), `SUPABASE_SECRET_KEY` (or `SUPABASE_SERVICE_ROLE_KEY`), `NEXT_PUBLIC_APP_URL`.
 
-Existing working AI provider: `OPENAI_API_KEY`, `OPENAI_BASE_URL`, `OPENAI_MODEL`.
+Verified local AI provider: `ANTHROPIC_API_KEY`; optional `ANTHROPIC_MODEL` (verified default: `claude-haiku-4-5-20251001`). Existing OpenAI-compatible alternative: `OPENAI_API_KEY`, `OPENAI_BASE_URL`, `OPENAI_MODEL`. Keys remain server-side.
 
 Optional public GitHub read capacity: `GITHUB_TOKEN`. Configure it server-side for a reliable demo on an IP that has exhausted anonymous reads.
 
 ## Reference material
 
 Read as reference data, without running agents: [README](https://github.com/havinash-007/moreee/blob/main/README.md), [project context](https://github.com/havinash-007/moreee/blob/main/docs/PROJECT_CONTEXT.md), [matcher](https://github.com/havinash-007/moreee/blob/main/backend/matcher.py), [GitHub adapter](https://github.com/havinash-007/moreee/blob/main/backend/github.py), [agent prompts](https://github.com/havinash-007/moreee/blob/main/backend/agents.py), and [curated organizations](https://github.com/havinash-007/moreee/blob/main/mentor/orgs.json).
+
+## Latest integration verification — Havinash UI and Anthropic
+
+- Preserved the upstream hero, Instrument Serif/Manrope typography, dark surfaces, sky/cyan/orange accents, match podium and issue cards within `/contributions`. Reference commit: `cecd5401ce6def91b39fb282b1fec628900d3d05`. The host sidebar and other pages retain their existing design. The broader upstream galaxy, interview, GitHub OAuth, coach/reply and worker features were not transferred.
+- UI copy uses supplied fit factors and timestamps; it does not assert unassigned issues are available, invent five-axis scores, show static text as generated AI, or claim a plan is already saved.
+- Fixed the shared AI adapter's fenced JSON handling: surrounding narrative previously caused a valid Anthropic plan to fail parsing. Added a regression check and explicit invalid-response errors.
+- Live authenticated API QA passed Supabase password sign-in, profile update/reuse, deterministic match, public GitHub candidates, actual Anthropic plan generation, save, fresh GET, checklist completion, stage persistence, duplicate preservation and cross-account isolation. QA used disposable confirmed accounts; all QA records/accounts were removed. This verifies the API flow, not SMTP delivery or a full browser walkthrough.
+- Final production build (`npx next build --webpack`), TypeScript and changed-file ESLint passed; 243 tests across 34 files passed. All 117 generated browser assets were checked against configured server secret values; none contained those values.
+- Native Chrome inspected the authenticated desktop contribution surface. Mobile and the complete rendered match/issue/save walkthrough remain visually unverified. Independent source review's missing-profile recovery finding was fixed; its verdict covers source only.
+- Reusable live check: `QA_ALLOW_FIXTURES=true QA_EXPECTED_SUPABASE_PROJECT=<project-ref> node --env-file=.env.local scripts/verify-contributions.mjs`. The check requires matching API/database project identifiers, creates disposable accounts, makes real AI calls, and cleans its records. No credential values are printed.
+- No deployment or push was performed for these changes. Production environment configuration and live deployment QA remain separate.
+
+## Presentation correction — dark contribution design retained
+
+The user explicitly confirmed retaining Havinash's dark contribution styling. The standalone landing hero and rounded inset site frame are removed; contribution screens fill the working area of the existing app shell directly. Match and issue styling is preserved.
+
+Desktop navigation now collapses to an icon rail, remembers the choice after refresh and keeps profile/account controls pinned below the scrolling links. The host destinations and mobile navigation are preserved. Native Chrome verified collapse, persistence after reload, the continuous dark contribution canvas and visible pinned profile. Mobile visual review remains pending. No push or deployment was performed for this correction.

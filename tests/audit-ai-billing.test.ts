@@ -19,6 +19,17 @@ import OpenAI from 'openai';
 beforeEach(() => { vi.resetAllMocks(); vi.stubEnv('ANTHROPIC_API_KEY', ''); vi.stubEnv('OPENAI_API_KEY', 'test-only'); });
 afterEach(() => { vi.unstubAllEnvs(); vi.unstubAllGlobals(); });
 const options = { userId: 'account-a', messages: [{ role: 'user' as const, content: 'Help' }] };
+it('extracts fenced JSON with surrounding prose and rejects incomplete JSON', async () => {
+  vi.stubEnv('ANTHROPIC_API_KEY', 'test-only-anthropic');
+  mocks.sql.mockResolvedValue([{ id: 'reservation' }]);
+  const provider = vi.fn()
+    .mockResolvedValueOnce(Response.json({ content: [{ type: 'text', text: 'Here is your plan:\n```json\n{"why":"Source grounded"}\n```\nReview it before acting.' }], stop_reason: 'end_turn' }))
+    .mockResolvedValueOnce(Response.json({ content: [{ type: 'text', text: '```json\n{"why":\n```' }], stop_reason: 'end_turn' }));
+  vi.stubGlobal('fetch', provider);
+  await expect(chatCompletion({ ...options, responseFormat: { type: 'json_object' } })).resolves.toBe('{"why":"Source grounded"}');
+  await expect(chatCompletion({ ...options, responseFormat: { type: 'json_object' } })).rejects.toMatchObject({ code: 'invalid_response' });
+  expect(provider).toHaveBeenCalledTimes(2);
+});
 it('uses Anthropic server-side after quota reservation and sanitizes provider errors', async () => {
   vi.stubEnv('ANTHROPIC_API_KEY', 'test-only-anthropic');
   const provider = vi.fn().mockResolvedValueOnce(new Response(JSON.stringify({ content: [{ type: 'text', text: '```json\n{"why":"Live guidance"}\n```' }], stop_reason: 'end_turn' })))

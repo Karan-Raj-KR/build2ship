@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import MatchPodium from '@/components/contributions/MatchPodium';
 import IssueBoard from '@/components/contributions/IssueBoard';
+import ContributionSkeleton from '@/components/contributions/ContributionSkeleton';
 import './mentor.css';
 import type { Profile } from '@/types/database';
 import { CONTRIBUTION_PREFERENCES, type ContributionPreference, type ContributionBundle, type ContributionIssue, type SavedContribution, type matchContributions } from '@/lib/contributions';
@@ -58,6 +59,7 @@ export default function ContributionsPage() {
     setIssues(data.issues); setFetchedAt(data.fetchedAt);
   }
   const preferences = { weeklyTime, preference };
+  if (busy === 'loading') return <ContributionSkeleton/>;
   return <div className="mentor-surface space-y-8 pb-16 min-h-screen bg-black" aria-busy={!!busy}>
     {/* Standalone Full-screen Top Exit Navigation */}
     <nav className="w-full px-6 py-4 border-b border-white/10 flex items-center justify-between bg-zinc-950/80 backdrop-blur sticky top-0 z-50">
@@ -70,10 +72,9 @@ export default function ContributionsPage() {
       </Link>
     </nav>
 
-    <header className="mentor-heading space-y-3 pt-4"><h1 className="text-4xl md:text-5xl">Build your open source experience</h1><p className="text-zinc-300">Find a contribution that fits your profile, understand it, and save your next steps.</p></header>
+    <header className="mentor-heading space-y-3 pt-4"><h1 className="text-4xl md:text-5xl">Build your open source experience</h1><p className="text-zinc-300">Find a contribution that fits your profile, understand it, and save your next steps.</p><Link href="/contributions/full-auto" className="text-sm text-sky-200 hover:underline">Full-auto setup & job history →</Link></header>
     {error && <p className="alert alert-error" role="alert">{error} <button className="underline" disabled={!!busy} onClick={() => void run('loading', load)}>Reload saved progress</button></p>}
     {notice && <p className="alert alert-success" role="status">{notice}</p>}
-    {busy === 'loading' && <p role="status">Loading your profile and saved contributions…</p>}
     {!profile && !busy && !error && <section className="mentor-profile card p-6 space-y-4" aria-labelledby="contribution-profile"><h2 id="contribution-profile" className="text-xl font-semibold">Set your starting point</h2><p>Your profile could not be found. Complete your profile, then return here to match contribution paths.</p><Link className="btn btn-primary" href="/profile">Complete your profile →</Link></section>}
     {profile && <section className="mentor-profile card p-6 md:p-8 space-y-4" aria-labelledby="contribution-profile">
       <div className="flex flex-wrap items-center justify-between gap-3"><h2 id="contribution-profile" className="text-xl font-semibold">Your starting point</h2><Link className="adventure-text-link" href="/profile">Update your profile →</Link></div>
